@@ -17,7 +17,6 @@ public class EmailServiceImpl implements EmailService{
     private JavaMailSender javaMailSender;
 
 
-
     @Override
     public void sendEmailWithToken(String userEmail, String link) throws MessagingException {
 

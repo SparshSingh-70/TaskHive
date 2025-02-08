@@ -26,9 +26,10 @@ public class IssueController {
 
 
     @GetMapping("/{issueId}")
-    public ResponseEntity<Long> getIssueById(@PathVariable Long issueId) throws Exception{
-        return ResponseEntity.ok(issueService.getIssueById(issueId).getId());
+    public ResponseEntity<Issues> getIssueById(@PathVariable Long issueId) throws Exception{
+        return ResponseEntity.ok(issueService.getIssueById(issueId));
     }
+
 
 
     @GetMapping("/project/{projectId}")

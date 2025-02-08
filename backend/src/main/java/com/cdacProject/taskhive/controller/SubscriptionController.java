@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/subscription")
+@RequestMapping("/api/subscriptions")
 public class SubscriptionController {
 
     @Autowired
