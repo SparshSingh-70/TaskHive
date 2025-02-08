@@ -55,9 +55,13 @@ public class ProjectController {
     ) throws Exception {
 
         User user = userService.findUserProfileByJwt(jwt);
+        if(user!= null){
         Project projects = projectService.getProjectById(projectId);
-
         return new ResponseEntity<>(projects, HttpStatus.OK);
+
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 
@@ -86,9 +90,13 @@ public class ProjectController {
     ) throws Exception {
 
         User user = userService.findUserProfileByJwt(jwt);
+        if(user != null){
         Project updatedProject = projectService.updateProject(project, projectId);
 
         return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 
@@ -133,9 +141,15 @@ public class ProjectController {
     ) throws Exception {
 
         User user = userService.findUserProfileByJwt(jwt);
+        if(user != null){
         Chat chat = projectService.getChatByProjectId(projectId);
 
         return new ResponseEntity<>(chat, HttpStatus.OK);
+
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 
 
@@ -148,6 +162,7 @@ public class ProjectController {
     ) throws Exception {
 
         User user = userService.findUserProfileByJwt(jwt);
+
 
         invitationService.sendInvitation(inviteRequest.getEmail(), inviteRequest.getProjectId());
         MessageResponse res = new MessageResponse("User Invited to Project Successfully");
