@@ -3,12 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Dialog,
-  DialogClose,
+  DialogTrigger,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTrigger,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -16,21 +15,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DialogTitle } from "@radix-ui/react-dialog";
 import { DotFilledIcon, DotsVerticalIcon } from "@radix-ui/react-icons";
-import UpdateProjectForm from "./UpdateProjectForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProject } from "@/redux/Project/Project.Action";
+import { ArrowLeftIcon, TrashIcon } from "@radix-ui/react-icons";
 
 const ProjectCard = ({ item }) => {
   const navigate = useNavigate();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
-  const hnadleDeleteProject=()=>{
-    dispatch(deleteProject({projectId:item.id}))
-  }
+  const handleDeleteProject = () => {
+    dispatch(deleteProject({ projectId: item.id }));
+    setOpen(false);
+  };
 
   return (
     <Card className="p-5 w-full lg:max-w-3xl">
@@ -40,7 +40,7 @@ const ProjectCard = ({ item }) => {
             <div className="flex items-center gap-5">
               <h1
                 onClick={() => navigate(`/project/${item.id}`)}
-                className=" cursor-pointer font-bold text-lg "
+                className="cursor-pointer font-bold text-lg"
               >
                 {item.name}
               </h1>
@@ -60,7 +60,7 @@ const ProjectCard = ({ item }) => {
                   >
                     Update
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={hnadleDeleteProject}>Delete</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -71,12 +71,30 @@ const ProjectCard = ({ item }) => {
 
         <div className="flex flex-wrap gap-2 items-center">
           {item.tags.map((tag) => (
-            <Badge key={item} variant="outline">
+            <Badge key={tag} variant="outline">
               {tag}
             </Badge>
           ))}
         </div>
       </div>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+          </DialogHeader>
+          <p>Are you sure you want to delete this project?</p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              <ArrowLeftIcon className="w-5 h-5" /> Go Back
+            </Button>
+            <Button variant="outline" onClick={handleDeleteProject}>
+              <TrashIcon className="w-5 h-5" /> Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };

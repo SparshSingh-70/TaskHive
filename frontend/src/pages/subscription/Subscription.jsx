@@ -64,7 +64,7 @@ const Subscription = () => {
             planName: "Monthly Paid Plan",
             features: paidPlan,
             planType: "MONTHLY",
-            price: 799,
+            price: 499,
             buttonName:
               subscription.userSubscription?.planType == "MONTHLY"
                 ? "Current Plan"

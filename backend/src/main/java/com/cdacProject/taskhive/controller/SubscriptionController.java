@@ -38,12 +38,12 @@ public class SubscriptionController {
     @PatchMapping("/upgrade")
     public ResponseEntity<Subscription> upgradeSubscription
             (@RequestHeader("Authorization") String jwt,
-             @RequestParam PlanType planType
+             @RequestParam String planType
              ) throws Exception {
-
+        PlanType pType = PlanType.valueOf(planType.toUpperCase());
         User user = userService.findUserProfileByJwt(jwt);
 
-        Subscription subscription = subscriptionService.upgradeSubscription(user.getId(), planType);
+        Subscription subscription = subscriptionService.upgradeSubscription(user.getId(), pType);
 
         return new ResponseEntity<>(subscription, HttpStatus.OK);
 

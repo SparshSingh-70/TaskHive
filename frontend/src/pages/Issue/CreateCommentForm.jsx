@@ -56,7 +56,7 @@ export function CreateCommentForm({issueId}) {
                 </div>
                 
                  <FormControl>
-              <Input className="w-[20rem]" placeholder="add a comment..." {...field} />
+              <Input className="w-[20rem]" placeholder="Add a comment..." {...field} />
             </FormControl>
             </div>
            
@@ -64,7 +64,7 @@ export function CreateCommentForm({issueId}) {
           </FormItem>
         )}
       />
-      <Button type="submit">save</Button>
+      <Button className="text-white" type="submit">Save</Button>
     </form>
   </Form>
   );

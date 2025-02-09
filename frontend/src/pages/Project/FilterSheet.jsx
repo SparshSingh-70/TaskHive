@@ -32,7 +32,7 @@ const FilterSheet = () => {
         <SheetClose> 
         <div className="p-5 sticky top-10">
             <div className="flex justify-between lg:w-[20rem]">
-              <p className="text-xl tracking-wider">filters</p>
+              <p className="text-xl tracking-wider">Filters</p>
               <Button variant="ghost" size="icon">
                 <MixerHorizontalIcon />
               </Button>

@@ -12,7 +12,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -25,6 +24,20 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchIssues } from "@/redux/Issue/Issue.action";
 
+// Define background colors based on status
+const getCardBgColor = (status) => {
+  switch (status) {
+    case "pending":
+      return "bg-red-100"; // Light Red
+    case "in_progress":
+      return "bg-yellow-100"; // Light Blue
+    case "done":
+      return "bg-green-100"; // Light Green
+    default:
+      return "bg-gray-100"; // Default Gray
+  }
+};
+
 export function IssueList({ title, status }) {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -34,20 +47,21 @@ export function IssueList({ title, status }) {
     dispatch(fetchIssues(id));
   }, [id]);
 
-  
-
   return (
     <div>
       <Dialog>
-        <Card className="w-full md:w-[300px] lg:w-[310px] ">
-          <CardHeader className="">
+        {/* Apply background color dynamically */}
+        <Card className={`w-full md:w-[300px] lg:w-[310px] ${getCardBgColor(status)}`}>
+          <CardHeader>
             <CardTitle>{title}</CardTitle>
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-2">
-              {issue.issues.filter((item)=>item.status==status).map((item) => (
-                <IssueCard item={item} key={item} />
-              ))}
+              {issue.issues
+                .filter((item) => item.status === status)
+                .map((item) => (
+                  <IssueCard item={item} key={item.id} />
+                ))}
             </div>
           </CardContent>
           <CardFooter className="px-2">

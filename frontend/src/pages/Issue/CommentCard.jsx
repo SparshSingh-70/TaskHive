@@ -17,11 +17,12 @@ const CommentCard = ({ item }) => {
         </Avatar>
         <div className="space-y-1">
           <p>{item.user.fullName}</p>
-          <p>{item.content}</p>
+          <p>{item.contents}</p>
         </div>
       </div>
       <Button
         onClick={handleDeleteComment}
+        title="Delete this Comment"
         className="rounded-full"
         variant="ghost"
         size="icon"

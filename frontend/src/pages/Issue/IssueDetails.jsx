@@ -36,17 +36,17 @@ const IssueDetails = () => {
   };
 
   return (
-    <div className="px-20 py-8 text-gray-400">
+    <div className="px-20 py-8 text-dark-800">
       <div className="flex justify-between border p-10 rounded-lg">
         <ScrollArea className="h-[80vh] w-[60%] ">
           <div className="">
-            <h1 className="text-lg font-semibold text-gray-400">
+            <h1 className="text-lg font-semibold text-black-400">
               {issue.issueDetails?.title}
             </h1>
 
             <div className="py-5">
-              <h2 className="font-semibold text-gray-400">Description</h2>
-              <p className="text-gray-400 text-sm mt-3">
+              <h2 className="font-semibold text-black-800">Description</h2>
+              <p className="text-gray-600 text-sm mt-3">
                 {issue.issueDetails?.description}
               </p>
             </div>
@@ -59,7 +59,7 @@ const IssueDetails = () => {
                   <TabsTrigger value="history">History</TabsTrigger>
                 </TabsList>
                 <TabsContent value="all">
-                  all Make changes to your account here.
+                  Make changes to account here.
                 </TabsContent>
                 <TabsContent value="comments">
                   <CreateCommentForm issueId={issueId} />
@@ -70,7 +70,7 @@ const IssueDetails = () => {
                   </div>
                 </TabsContent>
                 <TabsContent value="history">
-                  History Change your password here.
+                  History Change here.
                 </TabsContent>
               </Tabs>
             </div>
@@ -126,23 +126,8 @@ const IssueDetails = () => {
                   </Badge>
                 </div>
 
-                <div className="flex gap-10 items-center">
-                  <p className="w-[7rem]">Realese</p>
-                  <div className="flex items-center gap-3">-</div>
-                </div>
-                <div className="flex gap-10 items-center">
-                  <p className="w-[7rem]">Reporter</p>
-                  {issue.issueDetails?.assignee ? (
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-8 w-8 text-xs">
-                        <AvatarFallback>A</AvatarFallback>
-                      </Avatar>
-                      <p>Ashok</p>
-                    </div>
-                  ) : (
-                    <div>-</div>
-                  )}
-                </div>
+                
+                
               </div>
             </div>
           </div>

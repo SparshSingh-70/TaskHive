@@ -12,7 +12,6 @@ import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { io } from "socket.io-client";
 
 const ChatBox = () => {
   const [message, setMessage] = useState("");
@@ -20,8 +19,6 @@ const ChatBox = () => {
   const { id } = useParams();
   const { chat, auth } = useSelector((store) => store);
   const chatContainerRef = useRef(null);
-
-  const handleMessageChange = (e) => setMessage(e.target.value);
 
   useEffect(() => {
     dispatch(fetchChatByProject(id));
@@ -33,7 +30,10 @@ const ChatBox = () => {
     }
   }, [chat.chat]);
 
+  const handleMessageChange = (e) => setMessage(e.target.value);
+
   const handleSendMessage = () => {
+    if (message.trim() === "") return; // Prevent sending empty messages
     dispatch(
       sendMessage({
         message: {
@@ -47,121 +47,48 @@ const ChatBox = () => {
     setMessage("");
   };
 
+  // Send message on pressing "Enter"
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  const sendMessageToServer = (message) => {
+    console.log(message);
+  };
+
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [chat.messages]);
 
-  // ---------------------------------
-
-  // const [stompClient, setStompClient] = useState(null);
-  // // const [messages, setMessages] = useState([]);
-
-  // const onConnect = (frem) => {
-  //   console.log("connect frem : ", frem);
-  // };
-  // const onErr = (err) => {
-  //   console.log("error when connect ", err);
-  // };
-  // useEffect(() => {
-  //   const sock = new SockJS("http://localhost:5454/ws");
-  //   const stomp = Stomp.over(sock);
-  //   setStompClient(stomp);
-
-  //   stomp.connect({}, onConnect, onErr);
-
-  //   // return () => {
-  //   //   if (stomp) {
-  //   //     stomp.disconnect();
-  //   //   }
-  //   // };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (stompClient && auth.reqUser && chat.chat) {
-  //     const subscription = stompClient.subscribe(
-  //       `/user/${chat.chat?.id}/private`,
-  //       onMessageRecive
-  //     );
-
-  //     return () => {
-  //       subscription.unsubscribe();
-  //     };
-  //   }
-  // });
-
-  // const onMessageRecive = (payload) => {
-  //   console.log("onMessageRecive ............. -----------", payload);
-
-  //   console.log("recive message -  - - - - - - -  -", JSON.parse(payload.body));
-
-  //   const recievedMessage = JSON.parse(payload.body);
-
-  //   dispatch(messageRecived(recievedMessage))
-  //   setMessages([...messages, recievedMessage]);
-  // };
-
-  const sendMessageToServer = (message) => {
-    console.log(message)
-    // if (stompClient && message) {
-    //   stompClient.send(
-    //     `/app/chat/${chat.chat?.id.toString()}`,
-    //     {},
-    //     JSON.stringify(message)
-    //   );
-    // }
-  };
-
-  // useEffect(() => {
-  //   // Scroll to the bottom when 'messages' change or component mounts
-  //   if (chatContainerRef.current) {
-  //     chatContainerRef.current.scrollTop =
-  //       chatContainerRef.current.scrollHeight;
-  //   }
-  // }, [messages]);
-
-  
   return (
     <div className="sticky">
       <div className="border rounded-lg">
-        <h1 className="border-b p-5">Chat Box</h1>
+        <h1 className="border-b p-5 text-black">Chat Box</h1> {/* Ensuring header text is black */}
         <ScrollArea className="h-[32rem] w-full p-5 flex gap-3 flex-col">
-          {/* <div>
-            <p className="py-2 px-5 border rounded-se-xl rounded-s-xl">you message</p>
-          </div> */}
-
           {chat.messages?.map((item, i) =>
-            item.sender.id == auth.user.id ? (
-              <div
-                ref={chatContainerRef}
-                key={item}
-                className="flex gap-2 mb-2"
-              >
+            item.sender.id === auth.user.id ? (
+              <div ref={chatContainerRef} key={i} className="flex gap-2 mb-2">
                 <Avatar>
-                  <AvatarFallback>{item.sender.fullName[0]}</AvatarFallback>
+                  <AvatarFallback className="text-black">{item.sender.fullName[0]}</AvatarFallback>
                 </Avatar>
-                <div
-                  className={`space-y-2 py-2 px-5 border rounded-ss-2xl rounded-e-xl`}
-                >
-                  <p>{item.sender?.fullName}</p>
-                  <p className="text-gray-300">{item.content}</p>
+                <div className="space-y-2 py-2 px-5 border rounded-ss-2xl rounded-e-xl">
+                  <p className="text-black">{item.sender?.fullName}</p>
+                  <p className="text-black">{item.content}</p> {/* Message text is black */}
                 </div>
               </div>
             ) : (
-              <div
-                ref={chatContainerRef}
-                key={item}
-                className="flex mb-2 gap-2 justify-end "
-              >
-                <div
-                  className={`space-y-2 py-2 px-5 border rounded-se-2xl rounded-s-xl`}
-                >
-                  <p>{item.sender?.fullName}</p>
-                  <p className="text-gray-300">{item.content}</p>
+              <div ref={chatContainerRef} key={i} className="flex mb-2 gap-2 justify-end">
+                <div className="space-y-2 py-2 px-5 border rounded-se-2xl rounded-s-xl">
+                  <p className="text-black">{item.sender?.fullName}</p>
+                  <p className="text-black">{item.content}</p> {/* Message text is black */}
                 </div>
                 <Avatar>
-                  <AvatarFallback>{item.sender.fullName[0]}</AvatarFallback>
+                  <AvatarFallback className="text-black">{item.sender.fullName[0]}</AvatarFallback>
                 </Avatar>
               </div>
             )
@@ -171,8 +98,9 @@ const ChatBox = () => {
           <Input
             value={message}
             onChange={handleMessageChange}
-            placeholder="type message..."
-            className="py-7 border-t outline-none  focus:outline-none focus:ring-0 rounded-none border-b-0 border-x-0"
+            onKeyDown={handleKeyDown} // Listening for Enter key press
+            placeholder="Type a message..."
+            className="py-7 border-t outline-none focus:outline-none focus:ring-0 rounded-none border-b-0 border-x-0 text-black" // Ensuring input text is black
           />
           <Button
             onClick={handleSendMessage}

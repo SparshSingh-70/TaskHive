@@ -13,6 +13,7 @@ const UpgradeSuccess = () => {
   const {subscription}=useSelector(store=>store)
 
   const queryParams = new URLSearchParams(location.search);
+  console.log(queryParams);
 
   // Access the 'payment_id' and 'planType' parameters
   const paymentId = queryParams.get("payment_id");

@@ -49,8 +49,8 @@ const LoginForm = () => {
                       <FormControl>
                         <Input
                           {...field}
-                          className="border w-full border-gray-700 py-5 px-5"
-                          placeholder="enter your email"
+                          className="border w-full border-gray-700 py-5 px-5 placeholder-white/100 !placeholder-white"
+                          placeholder="Enter your email"
                         />
                       </FormControl>
 
@@ -67,7 +67,7 @@ const LoginForm = () => {
                         <Input
                           {...field}
                           type="password" // Added type attribute for password input
-                          className="border w-full border-gray-700 py-5 px-5"
+                          className="border w-full border-gray-700 py-5 px-5 placeholder-white/100 !placeholder-white"
                           placeholder="Enter your password"
                         />
                       </FormControl>

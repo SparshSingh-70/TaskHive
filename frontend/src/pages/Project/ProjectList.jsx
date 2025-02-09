@@ -82,7 +82,7 @@ const ProjectList = () => {
         <section className="hidden lg:block">
           <Card className="p-5 sticky top-10">
             <div className="flex justify-between lg:w-[20rem]">
-              <p className="text-xl tracking-wider">filters</p>
+              <p className="text-xl tracking-wider">Filters</p>
               <Button variant="ghost" size="icon">
                 <MixerHorizontalIcon />
               </Button>
@@ -102,19 +102,19 @@ const ProjectList = () => {
                     >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="all" id="r1" />
-                        <Label htmlFor="r1">all</Label>
+                        <Label htmlFor="r1">All</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="fullstack" id="r1" />
-                        <Label htmlFor="r1">full stack</Label>
+                        <Label htmlFor="r1">Full Stack</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="frontend" id="r2" />
-                        <Label htmlFor="r2">frontend</Label>
+                        <Label htmlFor="r2">Frontend</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="backend" id="r3" />
-                        <Label htmlFor="r3">backend</Label>
+                        <Label htmlFor="r3">Backend</Label>
                       </div>
                     </RadioGroup>
                   </div>
@@ -146,7 +146,7 @@ const ProjectList = () => {
             <div className="relative p-0 w-full">
               <Input
                 className="w-[40%] rounded-fulls px-9"
-                placeholder="search project..."
+                placeholder="Search Project..."
                 onChange={handleSearchChange}
               />
               <MagnifyingGlassIcon className="absolute top-3 left-4" />

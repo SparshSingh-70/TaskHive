@@ -76,7 +76,7 @@ const CreateProjectForm = () => {
                     {...field}
                     type="text"
                     className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="project name..."
+                    placeholder="Project name..."
                   />
                 </FormControl>
                 <FormMessage />
@@ -92,7 +92,7 @@ const CreateProjectForm = () => {
                   <Input
                     {...field}
                     className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="project description"
+                    placeholder="Project description"
                   />
                 </FormControl>
 
@@ -175,7 +175,7 @@ const CreateProjectForm = () => {
             {(subscription.userSubscription?.planType === "FREE" &&
             auth.projectSize >= 3) ? (
               <div className="py-3">
-                <p className="text-red-500">you can create only 3 project with free plan, please upgrade your plan</p>
+                <p className="text-red-500">You can create only 3 project with free plan, please upgrade your plan</p>
               </div>
               
             ) : (

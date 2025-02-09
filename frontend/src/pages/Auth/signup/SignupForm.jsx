@@ -19,10 +19,13 @@ const formSchema = z.object({
   password: z
     .string()
     .min(8, "Password must be at least 8 characters long")
+    .regex(/^(?=.*[A-Z])(?=.*[\W_]).{8,}$/, "Must include 1 uppercase and 1 special character")
     .optional(),
 });
+
+
 const SignupForm = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,11 +34,12 @@ const SignupForm = () => {
       fullName: "",
     },
   });
+
   const onSubmit = (data) => {
-    // Handle form submission here
-    dispatch(register(data))
+    dispatch(register(data));
     console.log("signup form", data);
   };
+
   return (
     <div className="space-y-5">
       <h1 className="text-center text-xl">Register</h1>
@@ -50,7 +54,7 @@ const SignupForm = () => {
                   <Input
                     {...field}
                     type="text"
-                    className="border w-full border-gray-700 py-5 px-5"
+                    className="border w-full border-gray-700 py-5 px-5 placeholder-white/100 !placeholder-white"
                     placeholder="Enter your full name"
                   />
                 </FormControl>
@@ -66,25 +70,24 @@ const SignupForm = () => {
                 <FormControl>
                   <Input
                     {...field}
-                    className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="enter your email"
+                    className="border w-full border-gray-700 py-5 px-5  placeholder-white/100 !placeholder-white"
+                    placeholder="Enter your email"
                   />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="password" // Added password field
+            name="password"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
                     {...field}
-                    type="password" // Added type attribute for password input
-                    className="border w-full border-gray-700 py-5 px-5"
+                    type="password"
+                    className="border w-full border-gray-700 py-5 px-5  placeholder-white/100 !placeholder-white"
                     placeholder="Enter your password"
                   />
                 </FormControl>
